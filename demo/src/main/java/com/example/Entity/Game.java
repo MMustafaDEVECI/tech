@@ -1,5 +1,6 @@
 package com.example.Entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -17,5 +18,6 @@ public class Game {
     private long gameId;
     private String gameName;
     private int teamSize;
+    private int year;
     
 }

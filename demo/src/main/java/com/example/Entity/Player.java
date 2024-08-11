@@ -1,18 +1,9 @@
-package main.java.com.example.Entity;
+package com.example.Entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @Entity
@@ -31,36 +22,5 @@ public class Player {
     private long level;
     private long xp;
     private String country;
-
-    public long getPlayerId() {
-        return playerId;
-    }
-    public void setPlayerId(long playerId) {
-        this.playerId = playerId;
-    }
-    public String getNick() {
-        return nick;
-    }
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
-    public long getLevel() {
-        return level;
-    }
-    public void setLevel(long level) {
-        this.level = level;
-    }
-    public long getXp() {
-        return xp;
-    }
-    public void setXp(long xp) {
-        this.xp = xp;
-    }
-    public String getCountry() {
-        return country;
-    }
-    public void setCountry(String country) {
-        this.country = country;
-    }
 
 }

@@ -1,9 +1,9 @@
 package com.example.Entity;
 
 import java.time.LocalDateTime;
-import javax.persistence.OneToOne;
+import jakarta.persistence.*;
+import lombok.*;;
 
-import lombok.*;
 
 @Data
 @Entity

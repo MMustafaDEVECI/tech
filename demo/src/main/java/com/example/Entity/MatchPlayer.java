@@ -1,23 +1,14 @@
 package com.example.Entity;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
-@NoArgsConstructor
-@RequiredArgsConstructor
+
 @Table(name = "MatchPlayer")
 public class MatchPlayer {
     @EmbeddedId
@@ -29,11 +20,5 @@ public class MatchPlayer {
     private long score;
 
 
-}
-@EqualsAndHashCode
-@Embeddable
-public class MatchlayerId implements Serializable {
-    private Long matchId;
-    private Long playerId;
 }
 
