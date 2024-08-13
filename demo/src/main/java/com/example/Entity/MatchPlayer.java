@@ -8,16 +8,15 @@ import lombok.*;
 @Setter
 @ToString
 @AllArgsConstructor
-
 @Table(name = "MatchPlayer")
 public class MatchPlayer {
     @EmbeddedId
     private MatchPlayerId id;
 
-    private long kill;
-    private long death;
-    private long assist;
-    private long score;
+    private Long kill;
+    private Long death;
+    private Long assist;
+    private Long score;
 
 
 }

@@ -16,9 +16,9 @@ public class GamePlayer {
     @EmbeddedId
     private GamePlayerId id;
 
-    private long winNumber;
-    private long drawNumber;
-    private long loseNumber;
+    private Long winNumber;
+    private Long drawNumber;
+    private Long loseNumber;
     private String rank;
     final private LocalDateTime firstPlayed;
     private LocalDateTime timePlayed;

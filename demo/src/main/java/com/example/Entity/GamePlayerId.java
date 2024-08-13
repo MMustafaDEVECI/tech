@@ -3,6 +3,7 @@ package com.example.Entity;
 import java.io.Serializable;
 
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @Embeddable
+@AllArgsConstructor
 public class GamePlayerId implements Serializable{
     private Long gameId;
     private Long playerId;

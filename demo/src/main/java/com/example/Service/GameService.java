@@ -4,10 +4,7 @@ package com.example.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import com.example.Dto.GameAddRequestDto;
 import com.example.Dto.GamePlayerResponseDto;
 import com.example.Entity.Game;
@@ -45,36 +42,47 @@ public class GameService {
     public List<Game> getGames(){
         return gameRepository.findAll();
     }
-    public Optional<Game> getGamebyId(long id){
+    public Optional<Game> getGamebyId(Long id){
         return gameRepository.findById(id);
     }
-    public void updateGame(long id){
+    public void updateGame(Long id){
         Optional<Game> game = gameRepository.findById(id);
         if(game.isPresent()){
             game.get().setGameName("Valo");
             gameRepository.save(game.get());
         }
     }
-    public List<GamePlayerResponseDto> getTopPlayers(long id){
-        List<GamePlayerResponseDto> topPlayers = new ArrayList<>();
-        Optional<Game> game = gameRepository.findById(id);
-        if(game.isPresent()){
-            List<GamePlayer> gamePlayers = gamePlayerRepository.findTop10ByGameIdOrderByWins(id);
-            for(GamePlayer gamePlayer: gamePlayers){
-                GamePlayerResponseDto gamePlayerResponseDto = new GamePlayerResponseDto();
-                Long playerId = gamePlayer.getId().getPlayerId();
-                Optional<Player> player = playerRepository.findById(playerId);
-                if(player.isPresent()){
-                    gamePlayerResponseDto.setPlayerId(playerId);
-                    gamePlayerResponseDto.setPlayerName(player.get().getNick());
-                    gamePlayerResponseDto.setDuration(gamePlayer.getTimePlayed());
-                    gamePlayerResponseDto.setFirstPlayed(gamePlayer.getFirstPlayed());
-                }
-                topPlayers.add(gamePlayerResponseDto);
-            }
+    public List<GamePlayerResponseDto> getTopPlayers(Long id){
 
+        List<GamePlayer> gamePlayers = gamePlayerRepository.findTop10ByGameIdOrderByWins(id);
+        List<GamePlayerResponseDto> topPlayers = convertGamePlayersToResponse(gamePlayers);
+        return topPlayers;
+    }
+
+    private List<GamePlayerResponseDto> convertGamePlayersToResponse(List<GamePlayer> gamePlayers){
+        
+        List<GamePlayerResponseDto> topPlayers = new ArrayList<>();
+        for(GamePlayer gamePlayer: gamePlayers){ 
+            Optional<Player> player = findPlayerByGamePlayer(gamePlayer);
+            GamePlayerResponseDto gamePlayerResponseDto = toDto(gamePlayer, player);
+            topPlayers.add(gamePlayerResponseDto);
         }
         return topPlayers;
+
+
+    }
+    private Optional<Player> findPlayerByGamePlayer(GamePlayer gamePlayer){
+        Long playerId = gamePlayer.getId().getPlayerId();
+        return playerRepository.findById(playerId);
+    }
+
+    private GamePlayerResponseDto toDto(GamePlayer gamePlayer, Optional<Player> player) {
+        GamePlayerResponseDto dto = new GamePlayerResponseDto();
+        dto.setPlayerId(player.get().getPlayerId());
+        dto.setPlayerName(player.get().getNick());
+        dto.setDuration(gamePlayer.getTimePlayed());
+        dto.setFirstPlayed(gamePlayer.getFirstPlayed());
+        return dto;
     }
 
 }

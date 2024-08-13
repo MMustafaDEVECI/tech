@@ -17,10 +17,10 @@ import lombok.*;;
 public class Match {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long matchId;
+    private Long matchId;
     @Column(name = "game_id", nullable = false)
     private Long gameId;
     private LocalDateTime matchTime;
-    private long duration;
+    private Long duration;
 
 }

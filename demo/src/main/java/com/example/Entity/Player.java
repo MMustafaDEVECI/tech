@@ -17,10 +17,10 @@ import lombok.*;
 public class Player {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long playerId;
+    private Long playerId;
     private String nick;
-    private long level;
-    private long xp;
+    private Long level;
+    private Long xp;
     private String country;
 
 }
