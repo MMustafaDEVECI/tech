@@ -1,13 +1,15 @@
 package com.example.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
+import com.example.Dto.MatchResponseDto;
 import com.example.Entity.Match;
 import com.example.Entity.MatchEndedEvent;
 import com.example.Entity.MatchPlayer;
@@ -40,7 +42,32 @@ public class MatchService {
         }
     }
 
-    public Match createMatch(Long gameId, LocalDateTime matchTime, long duration) {
+    public MatchResponseDto getMatchInfo(Long id){
+        Match match = matchRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("Match not found"));
+        return toResponseDto(match);
+
+    }
+
+    public int getNumberOfMatchesByDay(LocalDate date){
+        LocalDateTime beginning =  convertDateToTimeBeginning(date);
+        LocalDateTime end =  convertDateToTimeEnd(date);
+        int numberOfMatches = matchRepository.findMatchesByDay(beginning, end);
+        return numberOfMatches;
+    }
+
+    public int getNumberOfCurrentMatches(){
+        return matchRepository.findNumberOfCurrentMatches();
+    }
+
+    private LocalDateTime convertDateToTimeBeginning(LocalDate date) {
+        return date.atStartOfDay();
+    }
+    private LocalDateTime convertDateToTimeEnd(LocalDate date) {
+        return date.atTime(LocalTime.MAX);
+    }
+
+    private Match createMatch(Long gameId, LocalDateTime matchTime, long duration) {
         Match match = new Match();
         match.setGameId(gameId);
         match.setMatchTime(matchTime);
@@ -60,5 +87,15 @@ public class MatchService {
         eventPublisher.publishEvent(new MatchEndedEvent(this, matchId, playerIds));
 
         return savedMatch;
+    }
+
+    private MatchResponseDto toResponseDto(Match match){
+        
+        MatchResponseDto matchResponseDto = new MatchResponseDto();
+        matchResponseDto.setMatchId(match.getMatchId());
+        matchResponseDto.setGameId(match.getGameId());
+        matchResponseDto.setMatchTime(match.getMatchTime());
+        matchResponseDto.setDuration(match.getDuration());
+        return matchResponseDto;
     }
 }

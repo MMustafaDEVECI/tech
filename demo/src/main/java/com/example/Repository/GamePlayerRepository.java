@@ -16,4 +16,6 @@ public interface GamePlayerRepository extends JpaRepository<GamePlayer, GamePlay
     List<GamePlayer> findByIdGameId(Long gameId);
     @Query(value = "SELECT * FROM GamePlayer gp WHERE gp.game_id = :gameId ORDER BY gp.win_number DESC LIMIT 10", nativeQuery = true)
     List<GamePlayer> findTop10ByGameIdOrderByWins(@Param("gameId") Long gameId);
+    @Query("SELECT COUNT(*) FROM GamePlayer gp WHERE gp.game_id = :gameId")
+    int findNumberOfPlayersOfGame(@Param("gameId") Long gameId);
 }
