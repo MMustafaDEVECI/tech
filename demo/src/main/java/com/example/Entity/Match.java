@@ -18,8 +18,9 @@ public class Match {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long matchId;
-    @Column(name = "game_id", nullable = false)
+    @Column(name = "game_id")
     private Long gameId;
+    @Column(name = "match_time")
     private LocalDateTime matchTime;
     private Long duration;
 

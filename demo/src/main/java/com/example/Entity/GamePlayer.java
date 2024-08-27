@@ -19,7 +19,7 @@ public class GamePlayer {
     private Long winNumber;
     private Long drawNumber;
     private Long loseNumber;
-    private String rank;
+    private String ranks;
     final private LocalDateTime firstPlayed;
     private LocalDateTime timePlayed;
 

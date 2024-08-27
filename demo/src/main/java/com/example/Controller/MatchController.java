@@ -28,7 +28,7 @@ public class MatchController {
         MatchResponseDto matchResponseDto = matchService.getMatchInfo(matchIdRequestDto.getMatchId());
         return ResponseEntity.ok(matchResponseDto);
     }
-    @GetMapping
+    @GetMapping("/day")
     public ResponseEntity<Integer> getNumberOfMatchesByDay(@RequestBody LocalDate date) {
         int numberOfMatches = matchService.getNumberOfMatchesByDay(date);
         return ResponseEntity.ok(numberOfMatches);

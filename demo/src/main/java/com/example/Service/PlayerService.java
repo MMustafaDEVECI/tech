@@ -88,7 +88,7 @@ public class PlayerService {
         return toRankingResponseDto(gamePlayer);
     }
     public List<MatchResponseDto> getLast20MatchesInGame(Long playerId, Long gameId) {
-        List<Match> matches = matchRepository.findTop20ByGameIdAndPlayerIdOrderByMatchTimeDesc(gameId, playerId);
+        List<Match> matches = matchRepository.findTop20MatchesByGameIdAndPlayerIdOrderByMatchTimeDesc(gameId, playerId);
         return matches.stream()
                 .map(this::toMatchResponseDto)
                 .collect(Collectors.toList());
@@ -148,7 +148,7 @@ public class PlayerService {
                 playerRepository.findById(gamePlayer.getId().getPlayerId())
                         .map(Player::getNick)
                         .orElse("Unknown Player"),
-                gamePlayer.getRank()
+                gamePlayer.getRanks()
         );
     }
     private MatchResponseDto toMatchResponseDto(Match match) {
