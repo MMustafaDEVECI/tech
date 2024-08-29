@@ -13,7 +13,7 @@ import lombok.*;;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Match")
+@Table(name = "`Match`")
 public class Match {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)

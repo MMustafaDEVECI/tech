@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 @Repository
 public interface MatchRepository extends JpaRepository<Match, Long>{
-    @Query(value = "SELECT game_id FROM Matche WHERE match_id = :matchId", nativeQuery = true)
+    @Query(value = "SELECT game_id FROM `Match` WHERE match_id = :matchId", nativeQuery = true)
     Long findGameIdByMatchId(@Param("matchId") Long matchId);
 
     @Query(value = "SELECT * FROM `Match` WHERE game_id = :gameId AND match_id IN (SELECT match_id FROM MatchPlayer WHERE player_id = :playerId) ORDER BY match_time DESC LIMIT 20", nativeQuery = true)

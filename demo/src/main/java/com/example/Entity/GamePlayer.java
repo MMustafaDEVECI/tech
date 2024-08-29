@@ -10,7 +10,7 @@ import lombok.*;
 @Setter
 @ToString
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Table(name = "GamePlayer")
 public class GamePlayer {
     @EmbeddedId
@@ -20,7 +20,7 @@ public class GamePlayer {
     private Long drawNumber;
     private Long loseNumber;
     private String ranks;
-    final private LocalDateTime firstPlayed;
+    private LocalDateTime firstPlayed; // final
     private LocalDateTime timePlayed;
 
 }

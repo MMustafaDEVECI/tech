@@ -1,6 +1,7 @@
 package com.example.Controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 //import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import com.example.Dto.MatchResponseDto;
 import com.example.Service.MatchService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 
 @RestController
@@ -38,6 +41,14 @@ public class MatchController {
         int currentMatches = matchService.getNumberOfCurrentMatches();
         return ResponseEntity.ok(currentMatches);
     }
+    @PostMapping("/endMatch")
+    public ResponseEntity<Void> endMatch(@RequestBody Long matchId) {
+        //setscores etc;
+        matchService.endMatch(matchId, 1l);
+        return ResponseEntity.ok().build();
+
+    }
+    
     
     
 }

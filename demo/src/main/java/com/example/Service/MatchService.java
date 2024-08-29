@@ -10,11 +10,14 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import com.example.Dto.MatchResponseDto;
+import com.example.Entity.GamePlayer;
+import com.example.Entity.GamePlayerId;
 import com.example.Entity.Match;
 import com.example.Entity.MatchEndedEvent;
 import com.example.Entity.MatchPlayer;
 import com.example.Entity.MatchPlayerId;
 import com.example.Entity.MatchReadyEvent;
+import com.example.Repository.GamePlayerRepository;
 import com.example.Repository.MatchPlayerRepository;
 import com.example.Repository.MatchRepository;
 
@@ -26,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class MatchService {
     
     private final MatchRepository matchRepository;
+    private final GamePlayerRepository gamePlayerRepository;
     private final MatchPlayerRepository matchPlayerRepository;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -34,11 +38,22 @@ public class MatchService {
         startMatchWithPlayers(event.getGameId(), event.getPlayerIds());
     }
 
-    public void startMatchWithPlayers(Long gameId, List<Long> playerIds) {
+    private void startMatchWithPlayers(Long gameId, List<Long> playerIds) {
         Match match = createMatch(gameId, LocalDateTime.now(), 0);
         for (Long playerId : playerIds) {
             MatchPlayer matchPlayer = new MatchPlayer(new MatchPlayerId(match.getMatchId(), playerId), 0l, 0l, 0l, 0l);
+            if(!gamePlayerRepository.existsById(new GamePlayerId(gameId, playerId))){
+                /* setGamePlayer new function SOLID */
+                GamePlayer gamePlayer = new GamePlayer();
+                gamePlayer.setFirstPlayed(LocalDateTime.now());
+                gamePlayer.setId(new GamePlayerId(gameId, playerId));
+                gamePlayer.setWinNumber(0l);
+                gamePlayer.setDrawNumber(0l);
+                gamePlayer.setLoseNumber(0l);
+                gamePlayerRepository.save(gamePlayer);
+            }
             matchPlayerRepository.save(matchPlayer);
+            System.out.println(playerId + " added");
         }
     }
 

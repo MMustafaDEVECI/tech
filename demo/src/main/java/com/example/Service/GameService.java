@@ -58,6 +58,7 @@ public class GameService {
         Boolean ifExists = gameRepository.existsById(id);
         if(ifExists){
             Game game = toRequestDto(gameRequestDto);
+            game.setGameId(id);
             gameRepository.save(game);
         }
     }

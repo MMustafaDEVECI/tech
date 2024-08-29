@@ -8,12 +8,13 @@ import lombok.*;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "MatchPlayer")
 public class MatchPlayer {
     @EmbeddedId
     private MatchPlayerId id;
 
-    private Long kill;
+    private Long killes;
     private Long death;
     private Long assist;
     private Long score;

@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `Match` (
     FOREIGN KEY (game_id) REFERENCES Game(game_id)
 );
 
-CREATE TABLE IF NOT EXISTS GamePlayer (
+CREATE TABLE IF NOT EXISTS Game_Player (
     game_id BIGINT NOT NULL,
     player_id BIGINT NOT NULL,
     win_number BIGINT NOT NULL,
@@ -39,14 +39,14 @@ CREATE TABLE IF NOT EXISTS GamePlayer (
     FOREIGN KEY (player_id) REFERENCES Player(player_id)
 );
 
-CREATE TABLE IF NOT EXISTS MatchPlayer (
+CREATE TABLE IF NOT EXISTS Match_Player (
     match_id BIGINT NOT NULL,
     player_id BIGINT NOT NULL,
-    kill BIGINT NOT NULL,
+    killes BIGINT NOT NULL,
     death BIGINT NOT NULL,
     assist BIGINT NOT NULL,
     score BIGINT NOT NULL,
     PRIMARY KEY (match_id, player_id),
-    FOREIGN KEY (match_id) REFERENCES Matche(match_id),
+    FOREIGN KEY (match_id) REFERENCES `Match`(match_id),
     FOREIGN KEY (player_id) REFERENCES Player(player_id)
 );
